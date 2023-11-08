@@ -19,7 +19,7 @@ const usuarioSchema = mongoose.Schema({
     senha: {type: String, required: true}
 })
 usuarioSchema.plugin(uniqueValidator);
-const usario = mongoose.model("Usuario", usuarioSchema)
+const Usuario = mongoose.model("Usuario", usuarioSchema)
 
 async function conectarMongo(){
     await mongoose.connect(`mongodb+srv://bipossum:Ar03102005@cluster0.zkws888.mongodb.net/?retryWrites=true&w=majority`)
@@ -66,11 +66,12 @@ app.post('/signup', async (req, res)=> {
     const login = req.body.login
     const senha = req.body.senha
     const usuario = new Usuario({
-        login:login
+        login:login,
         senha:senha
     })
     const respostadoMongo = await usuario.save()
     console.log(respostadoMongo)
+    res.end()
 })
 app.listen(3000, () => {
     try {
